@@ -9,20 +9,23 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04      # fixed version, so the build does not change when ubuntu-latest moves to a new Ubuntu
 
     steps:
       - name: Check out the code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Prepare the Android SDK (make it writable, accept licenses)
+        # Uses the runner's own Java 17 for sdkmanager, because sdkmanager can fail on very new Java versions
+        run: |
+          sudo chmod -R a+rwX "$ANDROID_HOME" || true
+          yes | JAVA_HOME="${JAVA_HOME_17_X64:-$JAVA_HOME}" "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "25"        # matches this project (gradle/gradle-daemon-jvm.properties asks for Java 25)
-
-      - name: Set up the Android SDK
-        uses: android-actions/setup-android@v3
 
       - name: Set up Gradle (with cache, so later builds are faster)
         uses: gradle/actions/setup-gradle@v4
