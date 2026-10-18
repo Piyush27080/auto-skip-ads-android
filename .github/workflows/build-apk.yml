@@ -1,0 +1,54 @@
+name: Build Android APK
+
+# Runs on every push to main, and you can also start it by hand:
+# GitHub repository -> Actions -> "Build Android APK" -> Run workflow
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"        # matches this project (gradle/gradle-daemon-jvm.properties asks for Java 25)
+
+      - name: Set up the Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle (with cache, so later builds are faster)
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Find the Gradle project
+        id: find
+        run: |
+          GRADLEW=$(find . -maxdepth 3 -name gradlew | head -n 1)
+          if [ -z "$GRADLEW" ]; then
+            echo "gradlew not found. Make sure the whole Android project is in this repository."
+            exit 1
+          fi
+          echo "Found: $GRADLEW"
+          echo "dir=$(dirname "$GRADLEW")" >> "$GITHUB_OUTPUT"
+
+      - name: Build the debug APK
+        working-directory: ${{ steps.find.outputs.dir }}
+        run: |
+          sed -i 's/\r$//' gradlew     # fixes Windows line endings
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Upload the APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-skip-ads-debug-apk
+          path: "**/build/outputs/apk/debug/*.apk"
+          if-no-files-found: error
+          retention-days: 30
