@@ -19,15 +19,41 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:text="Turn on the service, then open YouTube or YouTube Music." />
+        android:layout_marginTop="8dp"
+        android:text="Version 0.2 (test version, it does not tap Skip yet)"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Status"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/openSettingsButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Open Accessibility settings" />
+
+    <Button
+        android:id="@+id/refreshButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Refresh status" />
+
+    <Button
+        android:id="@+id/shareLogButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share log" />
+
+    <Button
+        android:id="@+id/clearLogButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clear log" />
 
 </LinearLayout>
