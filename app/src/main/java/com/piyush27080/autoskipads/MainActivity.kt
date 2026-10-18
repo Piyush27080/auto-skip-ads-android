@@ -1,5 +1,6 @@
 package com.piyush27080.autoskipads
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -35,7 +36,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.shareLogButton).setOnClickListener { shareLog() }
         findViewById<Button>(R.id.clearLogButton).setOnClickListener {
             SkipService.logFile(this).delete()
-            Toast.makeText(this, "Log cleared", Toast.LENGTH_SHORT).show()
+            getSharedPreferences(SkipService.PREFS, Context.MODE_PRIVATE).edit()
+                .putInt(SkipService.KEY_TAPS, 0).apply()
+            Toast.makeText(this, "Log and counter cleared", Toast.LENGTH_SHORT).show()
             updateStatus()
         }
     }
@@ -55,9 +58,12 @@ class MainActivity : AppCompatActivity() {
     private fun updateStatus() {
         val file = SkipService.logFile(this)
         val logKb = if (file.exists()) file.length() / 1024 else 0
+        val taps = getSharedPreferences(SkipService.PREFS, Context.MODE_PRIVATE)
+            .getInt(SkipService.KEY_TAPS, 0)
         statusText.text =
             "Accessibility switch: " + (if (isSwitchOn()) "ON" else "OFF") + "\n" +
             "Service connected: " + (if (SkipService.running) "YES" else "NO") + "\n" +
+            "Skip taps so far: " + taps + "\n" +
             "Saved log size: " + logKb + " KB"
     }
 

@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Version 0.2 (test version, it does not tap Skip yet)"
+        android:text="Version 0.3: taps Skip when the button appears"
         android:textSize="13sp" />
 
     <TextView
@@ -54,6 +54,6 @@
         android:id="@+id/clearLogButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Clear log" />
+        android:text="Clear log and counter" />
 
 </LinearLayout>
