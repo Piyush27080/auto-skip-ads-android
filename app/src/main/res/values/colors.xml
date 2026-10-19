@@ -2,4 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="asa_bg">#FF121212</color>
+    <color name="asa_card">#FF1E1E1E</color>
+    <color name="asa_stroke">#FF2C2C2C</color>
+    <color name="asa_text">#FFF1F1F1</color>
+    <color name="asa_text_dim">#FF9A9A9A</color>
+    <color name="asa_red">#FFFF4D4D</color>
+    <color name="asa_green">#FF4ADE80</color>
+    <color name="asa_amber">#FFFBBF24</color>
+    <color name="asa_switch_off">#FF3A3A3A</color>
 </resources>

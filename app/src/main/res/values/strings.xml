@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Auto Skip Ads</string>
-    <string name="service_description">Taps the Skip button when a YouTube ad shows one. It only watches the YouTube and YouTube Music apps.</string>
+    <string name="service_description">Taps the Skip button when a YouTube ad shows one, and can mute ads. It only watches the YouTube and YouTube Music apps.</string>
 </resources>
